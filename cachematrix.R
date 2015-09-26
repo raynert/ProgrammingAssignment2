@@ -1,13 +1,13 @@
 makeCacheMatrix <- function(x = matrix()) {
-    m <- NULL # resets the matrix inverse to null
+    m <- NULL # resets m (in the makeCacheMatrix environment) to null
     set <- function(y) {
-        x <<- y
+        x <<- y # sets x in this environment
         m <<- NULL
     }
     get <- function() x # gets whatever x was given in the set() function
-                        # NB: x there implicitly returns whatever x was set to
-    setmatrix <- function(matrix) m <<- matrix
-    getmatrix <- function() m
+                        # NB: x prints whatever x was set to
+    setmatrix <- function(matrix) m <<- matrix # sets m
+    getmatrix <- function() m # prints m
     
     # makeCacheMatrix returns a list of four functions
     # x$set(y), defined above, is a function that caches the argument y
@@ -31,10 +31,10 @@ cacheSolve <- function(x, ...) {
         #     regardless of whether it's actually correct
     }
     data <- x$get()
-    m <- solve(data) # solves for the matrix inverse and sets it into the object, x
+    m <- solve(data) # solves for the matrix inverse 
+    x$setmatrix(m)   # sets it into the object, x
                      # aka the argument cacheSolve was passed
-    x$setmatrix(m)
-    m
+    m                # prints m
 }
 
 # NB: To test this code, I tried
